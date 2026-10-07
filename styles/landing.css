@@ -1,0 +1,211 @@
+/* Estilos da landing (prefixo ld-). Os tokens e os componentes compartilhados estão em base.css.
+
+   A página alterna duas matérias, as mesmas do projeto:
+   - concreto (.ld-concreto, tema claro): a rua vista de cima. Topo, IA e projeto.
+   - ferro (.ld-ferro, .ld-ferro-fundo e a chapa .tread, tema escuro): a tampa. Como funciona,
+     o app, o sensor, o fecho e o rodapé.
+   O azul só aparece na água (o cano, a água do bueiro) e na ação (botões e links). As cores de
+   risco só aparecem onde há risco (a tampa, o selo de nível, as marcas do bueiro em corte).
+
+   Larguras: até 1000 px as seções de duas colunas viram uma; até 640 px os textos encolhem e os
+   atalhos do cabeçalho somem. */
+
+.ld { width: 100%; overflow-x: clip; }
+.wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-inline: clamp(20px, 4vw, 40px); }
+section[id] { scroll-margin-top: 12px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ── Cabeçalho ── */
+.ld-nav { display: flex; align-items: center; gap: 28px; min-height: 76px; }
+.ld-logo { display: inline-flex; flex: none; }
+.ld-logo img { height: 38px; width: auto; }
+.ld-links { display: flex; gap: 26px; margin-left: 16px; }
+.ld-links a { text-decoration: none; font-size: 15.5px; font-weight: 700; color: var(--bone-300); transition: color 160ms var(--suave); }
+.ld-links a:hover { color: var(--bone-50); }
+.ld-nav-cta { margin-left: auto; min-height: 46px; padding-inline: 20px; font-size: 16px; }
+
+/* ── Matérias ── */
+/* Concreto: fundo claro com o granulado miúdo do cimento (pontos em várias escalas, sem cor). */
+.ld-concreto { background-color: #e9e8e5;
+  background-image: radial-gradient(circle at 12% 22%, rgba(16,18,20,0.055) 0 1.2px, transparent 1.6px),
+    radial-gradient(circle at 63% 41%, rgba(16,18,20,0.045) 0 1.6px, transparent 2px),
+    radial-gradient(circle at 87% 77%, rgba(255,255,255,0.6) 0 1.4px, transparent 1.8px),
+    radial-gradient(circle at 35% 88%, rgba(16,18,20,0.04) 0 1.1px, transparent 1.5px);
+  background-size: 61px 59px, 83px 79px, 71px 67px, 97px 89px; }
+.ld-ferro { background: var(--iron-900); }
+.ld-ferro-fundo { background: var(--iron-950); border-block: 1px solid var(--iron-700); }
+.ld-faixa { padding-block: clamp(64px, 9vw, 116px); }
+
+/* ── Títulos e textos de seção ── */
+.ld-h1 { font-family: var(--f-stamp); text-transform: uppercase; font-weight: 800; font-size: clamp(46px, 7.3vw, 96px); line-height: 0.9;
+  letter-spacing: 0.005em; text-wrap: balance; color: var(--bone-50); }
+.ld-h2 { font-family: var(--f-stamp); text-transform: uppercase; font-weight: 800; font-size: clamp(34px, 4.6vw, 56px); line-height: 0.94;
+  letter-spacing: 0.01em; text-wrap: balance; color: var(--bone-50); max-width: 15em; }
+.ld-abre-secao { margin-top: 18px; max-width: 40em; }
+.ld-lead { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; color: var(--bone-300); max-width: 33em; margin-top: 24px; text-wrap: pretty; }
+.ld-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ld-seta { display: inline-flex; align-items: center; gap: 6px; margin-top: 26px; font-size: 17px; font-weight: 700; color: var(--route); text-decoration: none; }
+.ld-seta:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.ld-seta .ico { transition: transform 200ms var(--suave); }
+.ld-seta:hover .ico { transform: translateX(3px); }
+
+/* ── Topo ── */
+.ld-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(36px, 5vw, 64px); align-items: center;
+  padding-block: clamp(52px, 7.5vw, 104px); }
+.ld-checks { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 26px; font-size: 15.5px; color: var(--bone-300); }
+.ld-checks li { display: inline-flex; align-items: center; gap: 8px; }
+.ld-checks .ico { color: var(--route); }
+.ld-lidwrap { display: flex; flex-direction: column; align-items: center; gap: 18px; min-width: 0; }
+.ld-clima { max-width: 100%; }
+.ld-palco { position: relative; width: min(100%, 460px); }
+.ld-lid { display: block; width: 100%; height: auto; }
+/* A água sobe devagar e troca de cor junto com o nível. É o movimento da página. */
+.ld-water { fill: var(--nivel); opacity: 0.92; transition: transform 1500ms var(--suave), fill 700ms var(--suave); }
+.ld-aro { stroke: var(--nivel); transition: stroke 700ms var(--suave); }
+/* O cartão do bueiro, como no app: quem é, o nível e os dois números (medido e previsto). */
+.ld-leitura { position: absolute; left: clamp(-36px, -3vw, -8px); bottom: 18px; width: 276px; padding: 16px 18px 18px; border-radius: 18px;
+  background: var(--iron-900); box-shadow: 0 22px 44px rgba(0,0,0,0.30), 0 2px 8px rgba(0,0,0,0.18); }
+.ld-leitura-topo { display: flex; align-items: center; gap: 10px; }
+.ld-leitura-topo .stamp { font-size: 24px; line-height: 1; color: var(--bone-50); }
+.ld-leitura .small { margin-top: 6px; }
+.ld-fatos { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--sep); }
+.ld-fatos dt { font-size: 13.5px; font-weight: 700; color: var(--bone-500); }
+.ld-num { margin-top: 2px; font-size: 26px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--bone-50); }
+.ld-nota { max-width: 30em; text-align: center; font-size: 14.5px; line-height: 1.4; color: var(--bone-500); }
+
+/* ── Como funciona: três tempos ligados por um cano ── */
+/* O cano vai do primeiro ao terceiro tempo e para ali (termina no centro da última junta). */
+.ld-passos { --vao: clamp(28px, 4vw, 52px); position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--vao); margin-top: 56px; }
+.ld-passos::before { content: ''; position: absolute; left: 28px; right: calc((100% - 2 * var(--vao)) / 3 - 28px); top: 24px; height: 8px; border-radius: 4px;
+  background: var(--route-deep); opacity: 0.6; }
+.ld-junta { position: relative; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%;
+  background: var(--iron-900); border: 2px solid var(--route); color: var(--bone-50); }
+.ld-passo h3 { font-family: var(--f-stamp); text-transform: uppercase; font-weight: 800; font-size: 28px; letter-spacing: 0.02em; margin-top: 20px; color: var(--bone-50); }
+.ld-passo .sub { margin-top: 10px; font-size: 17px; }
+
+/* ── O app, por dentro ── */
+.ld-app { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: clamp(32px, 5vw, 64px); align-items: start; margin-top: 44px; }
+.ld-pick { width: 100%; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-bottom: 1px solid var(--iron-700);
+  background: transparent; color: var(--bone-300); text-align: left; transition: background-color 180ms var(--suave), color 180ms var(--suave); }
+.ld-pick:first-child { border-top: 1px solid var(--iron-700); }
+.ld-pick b { font-family: var(--f-stamp); text-transform: uppercase; font-size: 22px; letter-spacing: 0.03em; font-weight: 800; color: var(--bone-100); }
+.ld-pick span { font-size: 16px; line-height: 1.45; }
+.ld-pick:hover { background: var(--fill-2); }
+.ld-pick-on, .ld-pick-on:hover { background: var(--iron-700); color: var(--bone-100); }
+.ld-pick-on b { color: var(--route); }
+.ld-desc-atual { display: none; }
+.ld-phone-col { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.ld-phone-col .ld-seta { margin-top: 18px; }
+.ld-phone-box { position: relative; }
+.ld-phone { position: absolute; top: 0; left: 0; transform-origin: top left; width: 414px; padding: 12px; border-radius: 46px; background: #050506;
+  border: 1px solid var(--iron-500); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 30px 60px rgba(0,0,0,0.5); }
+.ld-screen { position: relative; isolation: isolate; width: 390px; height: 844px; overflow: hidden; border-radius: 34px; background: var(--iron-800); }
+.ld-quadro { display: block; width: 100%; height: 100%; border: 0; }
+/* Capa: cobre o telefone até o app abrir e some devagar. */
+.ld-capa { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 44px;
+  text-align: center; background: var(--iron-800); transition: opacity 500ms var(--suave), visibility 0s 500ms; }
+.ld-capa .small { font-size: 16px; }
+.ld-capa-some { opacity: 0; visibility: hidden; pointer-events: none; }
+.ld-toque { display: none; position: absolute; inset: 0; border-radius: 40px; }
+
+/* ── A IA: uma frase de um lado, os fatos do outro ── */
+.ld-ia { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(36px, 6vw, 92px); align-items: start; }
+/* A frase acompanha a leitura dos fatos ao lado. */
+.ld-ia-frase { position: sticky; top: 40px; }
+.ld-ia-fatos li { padding-block: 22px; border-top: 1px solid var(--sep); }
+.ld-ia-fatos li:first-child { padding-top: 0; border-top: 0; }
+.ld-ia-fatos h3 { font-size: 19px; font-weight: 800; line-height: 1.25; color: var(--bone-50); }
+/* O número dos testes vem no carimbo, um degrau abaixo do título da seção. */
+.ld-ia-fatos h3.ld-ia-numero { font-family: var(--f-stamp); text-transform: uppercase; font-size: clamp(32px, 3.4vw, 44px); line-height: 1; letter-spacing: 0.01em; }
+.ld-ia-fatos p { margin-top: 6px; max-width: 36em; font-size: 17px; line-height: 1.5; color: var(--bone-300); text-wrap: pretty; }
+
+/* ── O sensor: o bueiro em corte e a ficha do protótipo ── */
+.ld-sensor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 84px); align-items: center; }
+.ld-sensor-desenho { padding: clamp(14px, 2vw, 28px); border-radius: 26px; background: var(--card); }
+.ld-corte { display: block; width: 100%; height: auto; }
+.ld-corte-terra { fill: var(--fill-2); }
+.ld-corte-oco { fill: var(--lid-bg); }
+.ld-corte-rua { fill: var(--iron-500); }
+.ld-corte-tampa { fill: var(--iron-400); }
+.ld-corte-frestas { stroke: var(--lid-bg); stroke-width: 4; stroke-linecap: round; fill: none; }
+.ld-corte-agua { fill: var(--route-deep); opacity: 0.88; }
+.ld-corte-fio { stroke: var(--bone-500); stroke-width: 2; fill: none; stroke-linejoin: round; }
+.ld-corte-placa { fill: var(--card); stroke: var(--bone-500); stroke-width: 1.5; }
+.ld-corte-sensor { fill: var(--bone-300); }
+.ld-corte-marca { stroke-width: 3; stroke-linecap: round; fill: none; }
+.ld-corte-regua { stroke: var(--bone-100); stroke-width: 1.5; stroke-linecap: round; fill: none; }
+.ld-corte-letra { font-family: var(--f-ui); font-size: 11px; font-weight: 700; fill: var(--bone-300); }
+.ld-corte-medida { font-size: 15px; fill: var(--bone-50); }
+.ld-ficha { margin-top: 30px; border-bottom: 1px solid var(--sep); }
+.ld-ficha div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 18px; padding-block: 15px; border-top: 1px solid var(--sep); }
+.ld-ficha dt { font-size: 16px; font-weight: 700; color: var(--bone-50); }
+.ld-ficha dd { font-size: 16.5px; line-height: 1.5; color: var(--bone-300); }
+
+/* ── O projeto: o que é de verdade e o que é simulado ── */
+.ld-verdade { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(36px, 6vw, 92px); margin-top: 52px; }
+.ld-verdade h3 { padding-bottom: 12px; border-bottom: 2px solid var(--bone-50); font-family: var(--f-stamp); text-transform: uppercase; font-weight: 800;
+  font-size: 24px; letter-spacing: 0.03em; color: var(--bone-50); }
+.ld-lista div { padding-block: 16px; border-bottom: 1px solid var(--sep); }
+.ld-lista dt { font-size: 17px; font-weight: 700; color: var(--bone-50); }
+.ld-lista dd { margin-top: 4px; max-width: 36em; font-size: 16.5px; line-height: 1.5; color: var(--bone-300); }
+.ld-codigo { margin-top: 22px; font-size: 16.5px; line-height: 1.5; color: var(--bone-300); }
+
+/* ── Fecho ── */
+.ld-final { text-align: center; border-top: 1px solid var(--iron-700); }
+.ld-final .ld-cta { justify-content: center; }
+.ld-h2-grande { font-size: clamp(40px, 6.2vw, 76px); max-width: none; }
+.ld-emergencia { margin-top: 30px; }
+.ld-emergencia a { color: var(--bone-50); }
+
+/* ── Rodapé ── */
+.ld-foot { border-top: 1px solid var(--iron-700); background: var(--iron-950); }
+.ld-cols { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 40px; padding: 58px 0 36px; }
+.ld-foot img { height: 40px; width: auto; }
+.ld-foot-sobre { margin-top: 16px; max-width: 26em; }
+.ld-cols h2 { font-size: 13.5px; font-weight: 700; color: var(--bone-500); }
+.ld-cols li { margin-top: 12px; }
+.ld-cols a { text-decoration: none; font-size: 15.5px; color: var(--bone-300); overflow-wrap: anywhere; }
+.ld-cols a:hover { color: var(--bone-50); text-decoration: underline; }
+.ld-legal { display: flex; flex-wrap: wrap; gap: 10px 28px; justify-content: space-between; padding: 22px 0 40px; border-top: 1px solid var(--iron-700); }
+
+/* ── Uma coluna ── */
+@media (max-width: 1000px) {
+  .ld-hero, .ld-app, .ld-ia, .ld-sensor, .ld-verdade { grid-template-columns: minmax(0, 1fr); }
+  .ld-leitura { left: 0; }
+  .ld-ia-frase { position: static; }
+  /* O cano fica em pé, à esquerda, e os três tempos descem por ele. */
+  .ld-passos { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .ld-passos::before { left: 24px; right: auto; top: 12px; bottom: 12px; width: 8px; height: auto; }
+  .ld-passo { position: relative; padding-left: 80px; min-height: 56px; }
+  .ld-junta { position: absolute; left: 0; top: 0; }
+  .ld-passo h3 { margin-top: 0; padding-top: 12px; }
+  /* A lista de telas vira uma fileira de nomes que rola de lado; a explicação vem logo abaixo. */
+  .ld-app { gap: 18px; }
+  .ld-telas { display: flex; gap: 8px; overflow-x: auto; margin-inline: calc(-1 * clamp(20px, 4vw, 40px)); padding-inline: clamp(20px, 4vw, 40px);
+    padding-block: 4px; scrollbar-width: none; }
+  .ld-telas::-webkit-scrollbar { display: none; }
+  .ld-pick, .ld-pick:first-child { flex: none; width: auto; min-height: 46px; justify-content: center; padding: 0 18px; border: 0; border-radius: 23px; background: var(--fill-2); }
+  .ld-pick b { font-family: var(--f-ui); text-transform: none; letter-spacing: 0; font-size: 15.5px; font-weight: 700; white-space: nowrap; color: inherit; }
+  .ld-pick span { display: none; }
+  .ld-pick-on, .ld-pick-on:hover { background: var(--route-deep); color: #ffffff; }
+  .ld-pick-on b { color: #ffffff; }
+  .ld-desc-atual { display: block; min-height: 4.4em; font-size: 16.5px; line-height: 1.45; color: var(--bone-300); }
+  .ld-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Telefone como vitrine: em tela estreita o mapa não recebe toque (ele prenderia a rolagem da página). */
+@media (max-width: 760px) {
+  .ld-quadro { pointer-events: none; }
+  .ld-toque { display: block; }
+}
+@media (max-width: 640px) {
+  .ld-links { display: none; }
+  .ld-nav { min-height: 66px; }
+  .ld-cta .btn { flex: 1 1 100%; }
+  .ld-final .ld-cta .btn { flex: 0 1 320px; }
+  .ld-clima button { padding-inline: 16px; }
+  .ld-clima button span { display: none; }
+  .ld-leitura { position: static; width: 100%; margin-top: 16px; box-shadow: none; }
+  .ld-ficha div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .ld-cols { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
