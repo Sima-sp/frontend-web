@@ -133,3 +133,11 @@ A página e o app precisam dizer a mesma coisa. Onde cada afirmação vive:
   telas de imitação (entrou o app de verdade), a seção de bairros com números inventados e a
   paleta azulada (entrou a paleta neutra do app). Entraram a tampa que reage ao clima, as
   seções da IA, do sensor e do que é de verdade, os links reais e a publicação no GitHub Pages.
+
+## Como o grupo trabalha
+
+- Ninguém envia direto para a `main`: cada mudança vai numa branch e entra por pull request.
+- O PR só pode ser juntado com o CI passando (job `ci`: build da página).
+- O merge é sempre *squash* (um commit por PR) e a branch é apagada depois. Cada merge na `main`
+  publica a página de novo no GitHub Pages.
+- O Dependabot abre, às segundas, um PR com as atualizações menores de dependências.
